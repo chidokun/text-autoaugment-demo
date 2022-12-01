@@ -7,7 +7,8 @@ from collections import OrderedDict, defaultdict
 import torch
 import ray
 import gorilla
-from ray.tune.trial import Trial
+from ray.tune.experiment.trial import Trial
+import ray.tune.trial_runner
 from ray.tune.schedulers import AsyncHyperBandScheduler
 from ray.tune.suggest.hyperopt import HyperOptSearch
 from ray.tune import register_trainable, run_experiments
