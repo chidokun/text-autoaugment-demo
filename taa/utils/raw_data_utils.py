@@ -600,6 +600,8 @@ def get_examples(dataset, text_key='text'):
 
 
 def general_split(examples, test_size, train_size, n_splits=2, split_idx=0):
+    print("test size: ", test_size)
+    print("train size", train_size)
     """used for datasets on huggingface"""
     labels = [e.label for e in examples]
     kf = StratifiedShuffleSplit(n_splits=n_splits, test_size=test_size, train_size=train_size,

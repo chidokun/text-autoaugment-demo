@@ -57,8 +57,11 @@ def get_datasets(dataset, policy_opt):
         train_dataset = load_dataset(path=path, name=dataset, data_dir=data_dir, data_files=data_files, split='train')
         test_dataset = load_dataset(path=path, name=dataset, data_dir=data_dir, data_files=data_files, split='test')
 
-    label_names = train_dataset.features['label'].names
-    class_num = train_dataset.features['label'].num_classes
+    # print("label: ", train_dataset.data['label'].unique())
+    # label_names = train_dataset.features['label'].names
+    # class_num = train_dataset.features['label'].num_classes
+    label_names = train_dataset.data['label'].unique()
+    class_num = len(label_names)
     label_mapping = {}
     for i in range(class_num):
         label_mapping[label_names[i]] = i
@@ -71,6 +74,7 @@ def get_datasets(dataset, policy_opt):
                                                        int(0.8 * all_train_examples_num))
         test_examples = get_examples(test_dataset, text_key)
     else:
+        print("begin split")
         train_examples, _ = general_split(all_train_examples, class_num * C.get()['valid']['npc'],
                                           class_num * C.get()['train']['npc'])
         train_examples = general_subsample_by_classes(train_examples, label_names, label_mapping, 'train')

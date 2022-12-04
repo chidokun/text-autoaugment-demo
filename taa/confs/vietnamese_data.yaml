@@ -1,0 +1,32 @@
+model:
+  type: Bert
+dataset:
+  path: /mnt/d/Projects/text-autoaugment-demo/taa/data
+  name: vietnamese_data
+  data_dir: 
+  data_files: {'train': 'vietnamese_data_train.csv', 'test': 'vietnamese_data_test.csv'}
+  text_key: text
+abspath: /mnt/d/Projects/text-autoaugment-demo/model_vietnamese_data
+aug: imdb
+per_device_train_batch_size: 64
+per_device_eval_batch_size: 128
+epoch: 1
+lr: 4e-5
+max_seq_length: 128
+n_aug: 4
+num_op: 2
+num_policy: 4
+method: random_taa
+topN: 3
+ir: 1
+seed: 59
+trail: 1
+train:
+  npc: 12
+valid:
+  npc: 12
+test:
+  npc: 12
+num_search: 1
+num_gpus: 1
+num_cpus: 8

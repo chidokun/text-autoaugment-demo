@@ -62,7 +62,7 @@ def augment_list():  # 16 operations and their ranges
         (random_word_delete, 0.0, 0.5),  # 1
         (tfidf_word_insert, 0.0, 0.5),  # 2
         (tfidf_word_substitute, 0.0, 0.5),  # 3
-        (synonym_word_substitute, 0.0, 0.5),  # 5
+        # (synonym_word_substitute, 0.0, 0.5),  # 5
     ]
     return l
 

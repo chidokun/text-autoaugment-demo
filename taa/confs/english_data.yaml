@@ -22,11 +22,11 @@ ir: 1
 seed: 59
 trail: 1
 train:
-  npc: 50
+  npc: 20
 valid:
-  npc: 50
+  npc: 20
 test:
-  npc: 50  
+  npc: 20  
 num_search: 200
 num_gpus: 1
 num_cpus: 8
