@@ -8,11 +8,11 @@ import torch
 import ray
 import gorilla
 from ray.tune.experiment.trial import Trial
-import ray.tune.trial_runner
+import ray.tune.execution.trial_runner
 from ray.tune.schedulers import AsyncHyperBandScheduler
-from ray.tune.suggest.hyperopt import HyperOptSearch
+from ray.tune.search.hyperopt import HyperOptSearch
 from ray.tune import register_trainable, run_experiments
-from ray.tune.suggest import ConcurrencyLimiter
+from ray.tune.search import ConcurrencyLimiter
 from ray.tune.schedulers import AsyncHyperBandScheduler
 from ray import tune
 from ray import tune
@@ -33,7 +33,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 def step_w_log(self):
-    original = gorilla.get_original_attribute(ray.tune.trial_runner.TrialRunner, 'step')
+    original = gorilla.get_original_attribute(ray.tune.execution.trial_runner.TrialRunner, 'step')
 
     # log
     cnts = OrderedDict()
@@ -49,7 +49,7 @@ def step_w_log(self):
     return original(self)
 
 
-patch = gorilla.Patch(ray.tune.trial_runner.TrialRunner, 'step', step_w_log, settings=gorilla.Settings(allow_hit=True))
+patch = gorilla.Patch(ray.tune.execution.trial_runner.TrialRunner, 'step', step_w_log, settings=gorilla.Settings(allow_hit=True))
 gorilla.apply(patch)
 
 logger = get_logger('Text AutoAugment')

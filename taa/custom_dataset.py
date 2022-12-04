@@ -8,9 +8,12 @@ class general_dataset(Dataset):
         super(Dataset, self).__init__()
         max_seq_length = C.get()['max_seq_length']
         self.texts = [d.text_a for d in examples]
+        print(self.texts)
         self.texts = [" ".join(t.split()[:max_seq_length]) if len(t.split()) > max_seq_length else t
                       for t in self.texts]  # clip texts
+        print(self.texts)
         self.labels = [d.label if d.label >= 0 else d.label + 1 for d in examples]
+        print("label: ", self.labels)
         self.aug_n_dist = 0
 
         if text_transform and text_transform.transforms:
@@ -22,6 +25,14 @@ class general_dataset(Dataset):
 
         # convert words to tokens and then to ids
         self.features = []
+        print(self.texts)
+        tmp_texts = []
+        for i in self.texts:
+            if type(i) is list:
+                tmp_texts.extend(i)
+            else:
+                tmp_texts.append(i)
+        self.texts = tmp_texts
         tmp_features = tokenizer(self.texts, max_length=max_seq_length, padding='max_length', truncation=True)
         for i in range(len(self.texts)):
             self.features.append(InputFeatures(
